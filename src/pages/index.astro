@@ -1,0 +1,452 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import photo8320 from '../assets/photos/IMG_8320.JPG';
+import photo8468 from '../assets/photos/IMG_8468.JPG';
+import photo9023 from '../assets/photos/IMG_9023.JPG';
+import photo9101 from '../assets/photos/IMG_9101.JPG';
+
+const projects = [
+	{
+		title: 'Spotboxd',
+		summary: 'A letterboxd-style social platform for Spotify users to track and share their favorite music.',
+		stack: 'Swift · Firebase · UiKit/SwiftUI',
+		link: 'https://github.com/redaktteedd/spotboxd',
+	},
+];
+
+const photos = [
+	{ image: photo8320, alt: 'Street scene with layered light.' },
+	{ image: photo8468, alt: 'Portrait with soft contrast.' },
+	{ image: photo9023, alt: 'Architectural lines with deep shadows.' },
+	{ image: photo9101, alt: 'City glow after rain.' },
+];
+---
+
+<Layout>
+	<div class="page">
+		<div class="glow glow-a"></div>
+		<div class="glow glow-b"></div>
+
+		<header class="top">
+			<div class="brand">
+				<span class="dot"></span>
+				<span>Michael</span>
+			</div>
+			<div class="role">Fullstack Developer · Freelance Photographer</div>
+			<a class="pill" href="https://github.com/redaktteedd">GitHub</a>
+		</header>
+
+		<main>
+			<section class="hero">
+				<p class="eyebrow">Portfolio · 2025</p>
+				<h1>Building in pixels and reality</h1>
+				<p class="lede">
+					I design and ship focused products, then slow down behind the camera. Here are some of the
+					project that I work on and photos I've taken along the way.
+				</p>
+				<div class="actions">
+					<a class="primary" href="#projects">See the work</a>
+					<a class="ghost" href="#photography">Photography</a>
+				</div>
+			</section>
+
+			<section id="projects" class="panel">
+				<div class="section-head">
+					<p class="eyebrow">Software</p>
+					<h2>Recent projects</h2>
+				</div>
+				<div class="cards">
+					{projects.map((project) => (
+						<article class="card">
+							<div class="card-top">
+								<h3>{project.title}</h3>
+								<span class="chip"><a href={project.link}>{project.link}</a></span>
+							</div>
+							<p class="muted">{project.summary}</p>
+							<div class="meta">{project.stack}</div>
+						</article>
+					))}
+				</div>
+			</section>
+
+			<section id="photography" class="panel">
+				<div class="section-head">
+					<p class="eyebrow">Photography</p>
+					<h2>Selected frames</h2>
+				</div>
+				<div class="shots">
+					{photos.map((photo) => (
+						<a class="shot" href={photo.image.src} target="_blank" rel="noopener">
+							<Image
+								src={photo.image}
+								alt={photo.alt}
+								width={720}
+								height={Math.round((photo.image.height / photo.image.width) * 720)}
+								quality={70}
+								format="webp"
+								loading="lazy"
+							/>
+						</a>
+					))}
+				</div>
+			</section>
+		</main>
+
+		<footer class="footer">
+			<div>
+				<p class="eyebrow">Thanks for visiting.</p>
+				<h3>Explore the projects and photo series.</h3>
+			</div>
+			<div class="footer-actions">
+				<a class="primary" href="#projects">Browse projects</a>
+				<a class="ghost" href="#photography">Browse photography</a>
+			</div>
+		</footer>
+	</div>
+</Layout>
+
+<style>
+	.page {
+		max-width: 1100px;
+		margin: 0 auto;
+		padding: clamp(20px, 3vw, 38px);
+		position: relative;
+		overflow: hidden;
+	}
+	a {
+		color: var(--accent);
+	}
+	a:hover {
+		text-decoration: underline;
+		color: var(--highlight);
+	}
+
+	.glow {
+		position: absolute;
+		filter: blur(120px);
+		opacity: 0.4;
+		z-index: 0;
+		pointer-events: none;
+	}
+
+	.glow-a {
+		top: -120px;
+		left: 0;
+		width: 340px;
+		height: 240px;
+		background: radial-gradient(circle at 20% 20%, rgba(217, 255, 128, 0.35), transparent 50%);
+	}
+
+	.glow-b {
+		bottom: -160px;
+		right: -80px;
+		width: 360px;
+		height: 260px;
+		background: radial-gradient(circle at 60% 40%, rgba(31, 41, 55, 0.35), transparent 52%);
+	}
+
+	.top {
+		display: grid;
+		grid-template-columns: auto 1fr auto;
+		align-items: center;
+		gap: 12px;
+		padding: 12px 0;
+		position: sticky;
+		top: 0;
+		backdrop-filter: blur(12px);
+		z-index: 2;
+	}
+
+	.brand {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		font-weight: 700;
+		letter-spacing: -0.02em;
+	}
+
+	.dot {
+		width: 12px;
+		height: 12px;
+		border-radius: 50%;
+		background: var(--highlight);
+		border: 1px solid var(--ink);
+	}
+
+	.role {
+		color: var(--muted);
+		font-size: 0.95rem;
+	}
+
+	.pill {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		padding: 10px 14px;
+		border-radius: 999px;
+		border: 1px solid var(--ink);
+		text-decoration: none;
+		font-weight: 600;
+		background: rgba(255, 255, 255, 0.6);
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+		transition: transform 0.2s ease, box-shadow 0.2s ease;
+	}
+
+	.pill:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
+	}
+
+	main {
+		display: flex;
+		flex-direction: column;
+		gap: 48px;
+		position: relative;
+		z-index: 1;
+	}
+
+	.hero {
+		display: grid;
+		gap: 16px;
+	}
+
+	.hero h1 {
+		font-size: clamp(2rem, 3.5vw, 3.2rem);
+		line-height: 1.15;
+		letter-spacing: -0.03em;
+		margin: 0;
+	}
+
+	.lede {
+		max-width: 700px;
+		font-size: 1.05rem;
+		color: var(--muted);
+		margin: 0;
+	}
+
+	.eyebrow {
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+		font-size: 0.8rem;
+		color: var(--muted);
+		margin: 0;
+	}
+
+	.actions {
+		display: flex;
+		gap: 10px;
+		flex-wrap: wrap;
+	}
+
+	.primary,
+	.ghost {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 8px;
+		padding: 12px 16px;
+		border-radius: 12px;
+		text-decoration: none;
+		font-weight: 700;
+		border: 1px solid var(--ink);
+		transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+	}
+
+	.primary {
+		background: var(--ink);
+		color: var(--paper);
+		box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+	}
+
+	.primary:hover {
+		transform: translateY(-1px);
+		box-shadow: 0 16px 32px rgba(15, 23, 42, 0.16);
+	}
+
+	.ghost {
+		background: rgba(248, 250, 252, 0.14);
+		color: #f8fafc;
+		border-color: rgba(248, 250, 252, 0.5);
+	}
+
+	.stats {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+		gap: 10px;
+		padding: 0;
+		margin: 10px 0 0;
+		list-style: none;
+	}
+
+	.stat-number {
+		display: block;
+		font-size: 1.6rem;
+		font-weight: 700;
+		letter-spacing: -0.02em;
+	}
+
+	.panel {
+		padding: 24px;
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		border-radius: 18px;
+		background: rgba(15, 17, 23, 0.6);
+		box-shadow: 0 14px 45px rgba(0, 0, 0, 0.35);
+		backdrop-filter: blur(18px);
+	}
+
+	.section-head h2 {
+		margin: 6px 0 0;
+		font-size: 1.6rem;
+	}
+
+	.cards {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+		gap: 14px;
+		margin-top: 18px;
+	}
+
+	.card {
+		border: 1px solid rgba(255, 255, 255, 0.14);
+		border-radius: 14px;
+		padding: 18px;
+		background: rgba(255, 255, 255, 0.04);
+		display: grid;
+		gap: 10px;
+		min-height: 170px;
+		color: var(--ink);
+		transition: transform 0.2s ease, box-shadow 0.2s ease;
+		backdrop-filter: blur(12px);
+	}
+
+	.card:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 16px 36px rgba(0, 0, 0, 0.06);
+	}
+
+	.card-top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 12px;
+	}
+
+	.card h3 {
+		margin: 0;
+		font-size: 1.1rem;
+		letter-spacing: -0.01em;
+	}
+
+	.chip {
+		border: 1px solid rgba(248, 250, 252, 0.5);
+		border-radius: 999px;
+		padding: 6px 10px;
+		font-size: 0.8rem;
+		background: rgba(248, 250, 252, 0.08);
+		color: #f8fafc;
+	}
+
+	.meta {
+		font-weight: 600;
+		color: #e2e8f0;
+	}
+
+	.muted {
+		color: rgba(248, 250, 252, 0.7);
+		margin: 0;
+	}
+
+	.shots {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		gap: 12px;
+		margin-top: 18px;
+	}
+
+	.shot {
+		display: block;
+		border-radius: 16px;
+		position: relative;
+		overflow: hidden;
+		min-height: 210px;
+		border: 1px solid var(--line);
+		background: rgba(255, 255, 255, 0.02);
+		color: #0b1020;
+		box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+		transition: transform 0.2s ease, box-shadow 0.2s ease;
+	}
+
+	.shot img {
+		width: 100%;
+		height: 100%;
+		display: block;
+		object-fit: cover;
+	}
+
+	.shot:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
+	}
+
+	.footer {
+		margin: 50px 0 20px;
+		padding: 22px;
+		border: 1px solid var(--line);
+		border-radius: 18px;
+		background: #0f172a;
+		color: #f7f3ed;
+		display: grid;
+		gap: 12px;
+		align-items: center;
+		grid-template-columns: 1fr auto;
+	}
+
+	.footer h3 {
+		margin: 6px 0 0;
+		font-size: 1.3rem;
+	}
+
+	.footer .eyebrow {
+		color: rgba(247, 243, 237, 0.7);
+	}
+
+	.footer-actions {
+		display: flex;
+		gap: 10px;
+		flex-wrap: wrap;
+		justify-content: flex-end;
+	}
+
+	.footer .primary {
+		background: #f7f3ed;
+		color: #0f172a;
+		border-color: #f7f3ed;
+		box-shadow: none;
+	}
+
+	.footer .ghost {
+		background: rgba(255, 255, 255, 0.1);
+		border-color: rgba(247, 243, 237, 0.5);
+		color: #f7f3ed;
+	}
+
+	@media (max-width: 760px) {
+		.top {
+			grid-template-columns: 1fr;
+			gap: 6px;
+		}
+
+		.hero {
+			gap: 12px;
+		}
+
+		.footer {
+			grid-template-columns: 1fr;
+		}
+
+		.footer-actions {
+			justify-content: flex-start;
+		}
+	}
+</style>
